@@ -69,4 +69,12 @@ To improve reliability:
 
 ## 📁 Project Structure
 
+├── app.py
+├── Fracture_Detection_Model.h5
+├── requirements.txt
+├── templates/
+│ └── index.html
+├── static/
+│ └── uploads/
+└── README.md
 
