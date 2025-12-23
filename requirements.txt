@@ -15,4 +15,6 @@ numpy
 matplotlib
 
 # --- Deployment (optional but recommended) ---
+onnxruntime
+
 gunicorn
