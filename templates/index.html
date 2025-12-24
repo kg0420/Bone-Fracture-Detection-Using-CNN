@@ -8,139 +8,257 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+    /* ===============================
+       BASE (DESKTOP - UNCHANGED)
+       =============================== */
+    .glass {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .float-card {
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease, box-shadow 0.6s ease;
+    }
+
+    .float-card:hover {
+        transform: translateY(-12px) rotateX(6deg) rotateY(-6deg);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .fade-up {
+        animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ===============================
+       MOBILE (MATCH SCREENSHOT)
+       =============================== */
+    @media (max-width: 640px) {
+
+        body {
+            background: linear-gradient(180deg, #0f172a, #020617);
+        }
+
+        /* Center everything like phone mock */
+        main {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 1.5rem 0 !important;
+        }
+
+        /* Constrain width */
+        main > section {
+            width: 100% !important;
+            max-width: 380px !important;
+            text-align: center !important;
+        }
+
+        header {
+            padding: 1rem !important;
+            max-width: 380px;
+            margin: auto;
+        }
+
+        header h1 {
+            font-size: 1rem !important;
+        }
+
+        /* Title */
+        h2 {
+            font-size: 1.6rem !important;
+            line-height: 1.25 !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        p {
+            font-size: 0.85rem !important;
+        }
+
+        /* Feature grid exactly like screenshot */
+        .grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.6rem !important;
+        }
+
         .glass {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 0.7rem !important;
+            border-radius: 12px !important;
         }
 
-        .fade-up {
-            animation: fadeUp 0.8s ease-out;
+        .glass p:first-child {
+            font-size: 0.85rem !important;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .glass p:last-child {
+            font-size: 0.7rem !important;
         }
-    </style>
+
+        /* Upload card */
+        .float-card {
+            max-width: 360px !important;
+            width: 100% !important;
+            padding: 1rem !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .float-card:hover {
+            transform: none !important;
+        }
+
+        input[type="file"] {
+            font-size: 0.75rem !important;
+        }
+
+        button {
+            font-size: 0.85rem !important;
+            padding: 0.6rem !important;
+            border-radius: 10px !important;
+        }
+
+        footer {
+            max-width: 380px;
+            margin: auto;
+            font-size: 0.65rem !important;
+            padding: 1.5rem 0 !important;
+        }
+    }
+</style>
+
 </head>
 
-<body class="bg-gradient-to-br from-slate-950 via-slate-800 to-slate-950 text-white min-h-screen flex justify-center">
+<body class="bg-gradient-to-br from-slate-950 via-slate-700 to-slate-950 text-white min-h-screen overflow-x-hidden">
 
-<!-- MOBILE APP CONTAINER -->
-<div class="w-full max-w-[420px] px-3 py-4">
+<!-- HEADER -->
+<header class="flex flex-col sm:flex-row justify-between items-center gap-4 px-4 sm:px-8 py-6">
+    <h1 class="text-lg sm:text-xl font-bold tracking-wide">
+        🦴 FractureAI
+    </h1>
+    <span class="text-xs px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30">
+        AI Powered
+    </span>
+</header>
 
-    <!-- HEADER -->
-    <header class="flex justify-between items-center mb-4">
-        <h1 class="text-lg font-semibold">🦴 FractureAI</h1>
-        <span class="text-[11px] px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30">
-            AI Powered
-        </span>
-    </header>
+<!-- MAIN -->
+<main class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 px-4 sm:px-8 lg:px-24 py-10">
 
-    <!-- MAIN CARD -->
-    <main class="glass rounded-3xl p-5 shadow-2xl fade-up">
-
-        <!-- HERO -->
-        <h2 class="text-xl font-semibold leading-snug mb-3">
-            Intelligent Fracture <br> Detection from X-rays
+    <!-- LEFT : INFO -->
+    <section class="fade-up text-center lg:text-left">
+        <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-6 tracking-tight">
+            Intelligent Fracture <br class="hidden sm:block">
+            Detection from X-rays
         </h2>
 
-        <p class="text-slate-300 text-sm mb-6">
+        <p class="text-slate-300 text-base sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0">
             A deep learning system trained on medical X-ray datasets to classify
             skeletal fracture regions with high confidence and safety checks.
         </p>
 
-        <!-- FEATURES -->
-        <div class="grid grid-cols-2 gap-3 mb-6">
-            <div class="glass rounded-xl p-3 text-sm">
-                ⚡ <span class="font-semibold">Fast</span>
-                <p class="text-xs text-slate-400">Results in seconds</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            <div class="glass rounded-xl p-4">
+                <p class="font-semibold">⚡ Fast Inference</p>
+                <p class="text-sm text-slate-400">Results in seconds</p>
             </div>
-            <div class="glass rounded-xl p-3 text-sm">
-                🧠 <span class="font-semibold">Deep Learning</span>
-                <p class="text-xs text-slate-400">CNN-based</p>
+            <div class="glass rounded-xl p-4">
+                <p class="font-semibold">🧠 Deep Learning</p>
+                <p class="text-sm text-slate-400">CNN-based model</p>
             </div>
-            <div class="glass rounded-xl p-3 text-sm">
-                🔐 <span class="font-semibold">Safe</span>
-                <p class="text-xs text-slate-400">Confidence check</p>
+            <div class="glass rounded-xl p-4">
+                <p class="font-semibold">🔐 Safe Predictions</p>
+                <p class="text-sm text-slate-400">Confidence thresholding</p>
             </div>
-            <div class="glass rounded-xl p-3 text-sm">
-                🏥 <span class="font-semibold">Medical</span>
-                <p class="text-xs text-slate-400">X-ray focused</p>
+            <div class="glass rounded-xl p-4">
+                <p class="font-semibold">🏥 Medical Ready</p>
+                <p class="text-sm text-slate-400">X-ray focused</p>
             </div>
         </div>
 
-        <!-- HOW IT WORKS -->
-        <div class="mb-6">
-            <p class="font-semibold text-sm mb-2">How it works:</p>
-            <ol class="list-decimal list-inside text-slate-400 text-sm space-y-1">
+        <div class="space-y-3 text-left max-w-md mx-auto lg:mx-0">
+            <p class="font-semibold text-slate-200">How it works:</p>
+            <ol class="list-decimal list-inside text-slate-400 space-y-1">
                 <li>Upload an X-ray image</li>
-                <li>Model validates quality</li>
-                <li>Result shown if ≥ 95%</li>
+                <li>Model validates image quality</li>
+                <li>Prediction shown if confidence ≥ 95%</li>
             </ol>
         </div>
+    </section>
 
-        <!-- UPLOAD CARD -->
-        <div class="glass rounded-2xl p-4 border border-white/10">
-            <p class="font-semibold mb-1">Upload X-ray Image</p>
-            <p class="text-xs text-slate-400 mb-3">Formats: JPG, PNG</p>
+    <!-- RIGHT : UPLOAD CARD -->
+    <section class="flex justify-center items-center fade-up">
+        <div class="float-card glass rounded-2xl w-full max-w-md p-6 border border-white/10">
 
-            <form method="POST" enctype="multipart/form-data" class="space-y-3">
+            <h3 class="text-lg sm:text-xl font-bold mb-2">
+                Upload X-ray Image
+            </h3>
+            <p class="text-sm text-slate-400 mb-6">
+                Supported formats: JPG, PNG
+            </p>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-4">
                 <input type="file" name="image" required
-                       class="w-full text-sm
-                              file:w-full
-                              file:py-2.5
-                              file:rounded-lg
-                              file:bg-blue-600
-                              file:text-white
-                              file:text-center">
+                    class="w-full text-sm text-slate-300
+                    file:mr-4 file:py-3 file:px-4
+                    file:rounded-xl file:border-0
+                    file:bg-blue-600 file:text-white
+                    hover:file:bg-blue-700 cursor-pointer">
 
                 <button type="submit"
-                        class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-semibold shadow-lg">
+                    class="w-full bg-blue-600 hover:bg-blue-700 transition py-3 rounded-xl font-semibold text-sm sm:text-base">
                     Analyze X-ray
                 </button>
             </form>
 
-            <!-- RESULT -->
             {% if image_path %}
-            <img src="{{ image_path }}" class="mt-4 rounded-xl border border-white/10">
+            <img src="{{ image_path }}"
+                 class="mt-6 rounded-xl border border-white/10 shadow-lg max-w-full h-auto">
             {% endif %}
 
             {% if prediction %}
-            <div class="mt-4 glass rounded-xl p-3 text-center border border-emerald-500/30">
-                <p class="text-emerald-400 font-semibold">{{ prediction }}</p>
-                <p class="text-xs text-emerald-300">
+            <div class="mt-6 glass rounded-xl p-4 text-center border border-emerald-500/30">
+                <p class="text-base sm:text-lg font-semibold text-emerald-400">
+                    {{ prediction }}
+                </p>
+                <p class="text-sm text-emerald-300">
                     Confidence: {{ confidence | round(2) }}%
                 </p>
-                <div class="mt-2 h-2 bg-emerald-900 rounded-full overflow-hidden">
+                <div class="mt-3 h-2 bg-emerald-900 rounded-full overflow-hidden">
                     <div class="h-full bg-emerald-400"
                          style="width: {{ confidence }}%"></div>
                 </div>
             </div>
             {% elif low_confidence %}
-            <div class="mt-4 glass rounded-xl p-3 text-center border border-yellow-500/30">
-                <p class="text-yellow-400 font-semibold">Low Confidence</p>
-                <p class="text-xs text-yellow-300">Upload a clearer X-ray</p>
+            <div class="mt-6 glass rounded-xl p-4 text-center border border-yellow-500/30">
+                <p class="text-yellow-400 font-semibold">
+                    Low Confidence Result
+                </p>
+                <p class="text-sm text-yellow-300">
+                    Please upload a clearer X-ray image
+                </p>
             </div>
             {% endif %}
         </div>
-    </main>
+    </section>
 
-    <!-- FOOTER -->
-    <footer class="text-center text-slate-500 text-[11px] mt-4">
-        © 2024 FractureAI · Developed by
-        <span class="text-slate-300 font-semibold">Krish Gupta</span>
-    </footer>
+</main>
 
-</div>
+<!-- FOOTER -->
+<footer class="text-center text-slate-500 text-xs sm:text-sm py-8 px-4">
+    © 2024 FractureAI · Developed by
+    <span class="text-slate-300 font-semibold">Krish Gupta</span>
+</footer>
 
 </body>
 </html>
-
