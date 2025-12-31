@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fracture Detection</title>
+
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#0d47a1">
+    <link rel="icon" href="{{ url_for('static', filename='icons/bone_fracture.PNG') }}">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .float-card {
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        @media (min-width: 1024px) {
+            .float-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white font-sans antialiased">
+
+<header class="flex items-center justify-between px-6 py-6 lg:px-12">
+    <h1 class="text-xl font-bold tracking-tight">🦴 FractureAI</h1>
+    <span class="text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30 font-bold">
+        AI Powered
+    </span>
+</header>
+
+<main class="px-6 pb-12 lg:px-12 max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+
+        <section class="fade-up text-center lg:text-left space-y-8 lg:w-1/2">
+            <div class="space-y-4">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+                    Intelligent Fracture<br class="hidden sm:block">
+                    Detection from X-rays
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                    A deep learning system trained on medical X-ray datasets to classify
+                    skeletal fracture regions with high confidence.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass rounded-xl p-4">
+                    <p class="font-semibold">⚡ Fast Inference</p>
+                    <p class="text-sm text-slate-400">Results in seconds</p>
+                </div>
+                <div class="glass rounded-xl p-4">
+                    <p class="font-semibold">🧠 Deep Learning</p>
+                    <p class="text-sm text-slate-400">CNN-based model</p>
+                </div>
+                <div class="glass rounded-xl p-4">
+                    <p class="font-semibold">🔐 Safe Predictions</p>
+                    <p class="text-sm text-slate-400">Confidence thresholding</p>
+                </div>
+                <div class="glass rounded-xl p-4">
+                    <p class="font-semibold">🏥 Medical Ready</p>
+                    <p class="text-sm text-slate-400">X-ray focused</p>
+                </div>
+            </div>
+
+
+            <div class="inline-block text-left p-4 rounded-xl bg-white/5 border border-white/5 w-full lg:max-w-md">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Process Workflow</p>
+                <ul class="space-y-2 text-sm text-slate-300">
+                    <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[10px]">1</span> Upload X-ray image</li>
+                    <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[10px]">2</span> Quality Validation</li>
+                    <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[10px]">3</span> Confidence Analysis</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="fade-up w-full lg:w-1/2 flex justify-center">
+            <div class="float-card glass rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/10 shadow-2xl">
+
+                <h3 class="text-xl font-bold mb-1">Analyze Image</h3>
+                <p class="text-xs text-slate-400 mb-6">Accepted formats: PNG, JPG, JPEG</p>
+
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div class="relative group">
+                        <input type="file" name="image" required
+                            class="block w-full text-sm text-slate-400
+                            file:mr-4 file:py-3 file:px-6
+                            file:rounded-xl file:border-0
+                            file:text-sm file:font-bold
+                            file:bg-white file:text-black
+                            hover:file:bg-blue-500 hover:file:text-white
+                            file:transition-all cursor-pointer">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/20 transition-all py-4 rounded-2xl font-bold text-sm uppercase tracking-widest">
+                        Analyze X-ray
+                    </button>
+                </form>
+
+                {% if image_path %}
+                <div class="mt-8 space-y-4">
+                    <div class="relative group overflow-hidden rounded-2xl border border-white/10">
+                        <img src="{{ image_path }}" class="w-full h-auto transition group-hover:scale-105">
+                    </div>
+                    
+                    {% if prediction %}
+                    <div class="p-5 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 animate-pulse">
+                        <div class="flex justify-between items-end mb-2">
+                            <div>
+                                <p class="text-[10px] uppercase font-bold text-emerald-500 tracking-widest">Result</p>
+                                <p class="text-xl font-bold text-emerald-400">{{ prediction }}</p>
+                            </div>
+                            <p class="text-sm font-mono text-emerald-300">{{ confidence | round(2) }}%</p>
+                        </div>
+                        <div class="h-1.5 bg-emerald-900/50 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 transition-all duration-1000" style="width: {{ confidence }}%"></div>
+                        </div>
+                    </div>
+                    {% elif low_confidence %}
+                    <div class="p-4 bg-yellow-500/10 rounded-2xl border border-yellow-500/30 text-center">
+                        <p class="text-yellow-400 font-bold">Low Confidence Result</p>
+                        <p class="text-xs text-yellow-300/70 mt-1">The image is too blurry or not a standard X-ray.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer class="text-center py-10 border-t border-white/5">
+    <p class="text-slate-500 text-[10px] uppercase tracking-[0.2em]">
+        © 2024 FractureAI · Developed by <span class="text-white font-bold">Krish Gupta</span>
+    </p>
+</footer>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/static/service-worker.js");
+    }
+</script>
+
+</body>
+</html>
