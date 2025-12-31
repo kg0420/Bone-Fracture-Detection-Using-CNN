@@ -1,0 +1,26 @@
+
+{
+  "id": "/Fracture Detection-app",
+  "name": "Fracture AI",
+  "short_name": "Fracture AI",
+  "description": "AI powered & types of Bone Fracture Detection",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#3f0760",
+  "icons": [
+    {
+      "src": "/static/icons/bone_Fracture192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "static/icons/bone_fracture.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
