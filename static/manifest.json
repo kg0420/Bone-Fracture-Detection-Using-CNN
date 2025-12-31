@@ -1,6 +1,6 @@
 
 {
-  "id": "/Fracture Detection-app",
+  "id": "/fracture-ai",
   "name": "Fracture AI",
   "short_name": "Fracture AI",
   "description": "AI powered & types of Bone Fracture Detection",
@@ -17,10 +17,11 @@
       "type": "image/png"
     },
     {
-      "src": "static/icons/bone_fracture.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    "src": "/static/icons/bone_fracture.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any maskable"
+  }
+
   ]
 }
