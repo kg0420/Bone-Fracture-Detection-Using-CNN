@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>AI Fracture Detection</title>
-
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#0d47a1">
+    <link rel="icon" href="{{ url_for('static', filename='icons/bone_fracture.PNG') }}">
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
     /* ===============================
        BASE (DESKTOP - UNCHANGED)
@@ -204,7 +205,7 @@
                 Upload X-ray Image
             </h3>
             <p class="text-sm text-slate-400 mb-6">
-                Supported formats: JPG, PNG
+                Supported formats: PNG, PNG
             </p>
 
             <form method="POST" enctype="multipart/form-data" class="space-y-4">
@@ -260,5 +261,12 @@
     <span class="text-slate-300 font-semibold">Krish Gupta</span>
 </footer>
 
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/static/service-worker.js")
+                .then(reg => console.log("Service Worker registered:", reg))
+                .catch(err => console.error("Service Worker failed:", err));
+        }
+    </script>
 </body>
 </html>
